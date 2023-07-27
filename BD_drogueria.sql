@@ -1,0 +1,40 @@
+-- MySQL Workbench Synchronization
+-- Generated: 2023-07-17 16:58
+-- Model: New Model
+-- Version: 1.0
+-- Project: Name of the project
+-- Author: Aprendiz
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+ALTER SCHEMA `bdrogueria`  DEFAULT CHARACTER SET utf8  DEFAULT COLLATE utf8_general_ci ;
+
+ALTER TABLE `bdrogueria`.`COMPANIA` 
+CHARACTER SET = utf8 , COLLATE = utf8_general_ci ;
+
+ALTER TABLE `bdrogueria`.`Factura` 
+CHARACTER SET = utf8 , COLLATE = utf8_general_ci ,
+ADD COLUMN `sub_total` FLOAT(11) NOT NULL AFTER `Termino_idTermino`,
+ADD COLUMN `tasa_impuesto` FLOAT(11) NOT NULL AFTER `sub_total`;
+
+ALTER TABLE `bdrogueria`.`Termino` 
+CHARACTER SET = utf8 , COLLATE = utf8_general_ci ;
+
+ALTER TABLE `bdrogueria`.`Factura` 
+ADD CONSTRAINT `fk_Factura_COMPANIA1`
+  FOREIGN KEY (`COMPANIA_idCOMPANIA`)
+  REFERENCES `bdrogueria`.`COMPANIA` (`idCOMPANIA`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_Factura_Termino1`
+  FOREIGN KEY (`Termino_idTermino`)
+  REFERENCES `bdrogueria`.`Termino` (`idTermino`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
